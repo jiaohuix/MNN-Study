@@ -29,6 +29,37 @@ build/        .gradle/      .cxx/        .idea/      *.iml      local.properties
 ### MnnAsrTest
 - `app/src/main/jniLibs/`（含 libsherpa-mnn-jni.so / libMNN.so / libMNN_Express.so / libc++_shared.so）
 
+## 模型来源（ModelScope）
+
+下面两个就是这套 demo 实测在用的模型，均托管在 ModelScope，国内直连无需翻墙。
+
+| 用途 | 模型 | 链接 |
+|---|---|---|
+| **流式 ASR**（MoeAvatarPro / MnnAsrTest 都用它） | sherpa-mnn 流式 zipformer 中英双语 | [MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20](https://www.modelscope.cn/models/MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20) |
+| **本地 LLM**（MoeChat / MoeAvatarPro 默认本地后端） | 自己微调的猫娘 0.8B（Qwen3-0.8B 基座 → MNN 格式） | [jiaohui/qwen35_08b_nekoneko](https://modelscope.cn/models/jiaohui/qwen35_08b_nekoneko) |
+
+下载并落到设备：
+
+```bash
+pip install modelscope
+
+# 1) ASR —— 推到 /data/local/tmp/asr（必须；/sdcard/Download 在 Android 11+ 有读权限坑）
+modelscope download --model MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20 \
+    --local_dir /tmp/asr_zipformer
+adb shell mkdir -p /data/local/tmp/asr
+adb push /tmp/asr_zipformer /data/local/tmp/asr/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20
+adb shell chmod -R 755 /data/local/tmp/asr
+
+# 2) LLM 猫娘 —— 推到 App 扫描的模型目录
+modelscope download --model jiaohui/qwen35_08b_nekoneko --local_dir /tmp/qwen35_08b_nekoneko
+adb push /tmp/qwen35_08b_nekoneko /sdcard/Download/MoeAvatar/models/
+```
+
+ASR 模型路径需与 `AsrTestActivity.DEFAULT_MODEL_DIR` / MoeAvatarPro 的 `AsrActivity` 默认值匹配（详见 docs §13 §10）。
+LLM 启动后会在 App 设置里出现，选中即可；`sys_prompt` 用预设角色扮演 prompt。
+
+---
+
 ## 补料清单（想要重新编译时）
 
 ### MoeAvatarPro
@@ -39,8 +70,7 @@ cp -r /home/jhx/Projects/nlp/MNN/apps/Android/MoeAvatarPro/{cppjieba,cpptokenize
 # 2. TTS 模型 assets（128M）
 cp -r /home/jhx/Projects/nlp/MNN/apps/Android/MoeAvatarPro/app/src/main/assets app/src/main/
 
-# 3. ASR 模型 push 到设备（不打包进 APK）
-adb push sherpa-mnn-streaming-zipformer-bilingual-zh-en /data/local/tmp/asr/
+# 3. ASR 模型 push 到设备（不打包进 APK，下载与 push 见上面"模型来源"）
 ```
 
 ### MnnAsrTest

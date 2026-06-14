@@ -361,7 +361,7 @@ samples (FloatArray) → 每 50ms 切一帧
 - Module：`sherpa/`，Kotlin 封装在 `com.k2fsa.sherpa.mnn.*`
 - Native：`libsherpa-mnn-jni.so` 已 patchelf 加 `DT_NEEDED libc++_shared.so`，
   `SherpaNative.ensureLoaded()` 是唯一的 native 加载入口
-- 模型：`/sdcard/Download/MoeAvatar/asr/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20/`
+- 模型：`/data/local/tmp/asr/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20/`（来自 ModelScope:[MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20](https://www.modelscope.cn/models/MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20)，下载与 push 命令见 doc 13 §7。**不要**留在 `/sdcard/Download` 下，scoped storage 会拦读权限）
 - 入口：`AsrActivity.kt`，按住按钮录音 + 实时出文字
 
 要把它接进 chat：在 `LlmChatActivity` 输入栏左边加个 🎤 按钮，
@@ -385,6 +385,14 @@ samples (FloatArray) → 每 50ms 切一帧
 | `sys_prompt` | system 提示 | （角色扮演风预设） |
 | `tts_speaker` | BertVITS2 说话人 | 自动选含"甘雨"的或第一个 |
 | `live2d_model` | 启动时角色 | `ATRI` |
+
+> **本仓默认 LLM**：本地端用我自己微调的猫娘 0.8B —— [jiaohui/qwen35_08b_nekoneko](https://modelscope.cn/models/jiaohui/qwen35_08b_nekoneko)（基于 Qwen3-0.8B，已转 MNN 格式）。下载后放 `local_dir` 指向的目录，启动时会被 `ModelScanner` 扫到，在设置里能选；`sys_prompt` 走预设的角色扮演 prompt 即可。
+>
+> ```bash
+> pip install modelscope
+> modelscope download --model jiaohui/qwen35_08b_nekoneko --local_dir /tmp/qwen35_08b_nekoneko
+> adb push /tmp/qwen35_08b_nekoneko /sdcard/Download/MoeAvatar/models/
+> ```
 
 设置弹窗在 `LlmChatActivity.showSettings()`，UI 在 `res/layout/dialog_chat_settings.xml`。
 

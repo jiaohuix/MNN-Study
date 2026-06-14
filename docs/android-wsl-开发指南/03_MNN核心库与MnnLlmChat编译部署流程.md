@@ -104,6 +104,15 @@ adb install -r app/build/outputs/apk/standard/debug/app-standard-debug.apk      
 
 可选：把模型下载到电脑、再 `adb push` 到手机指定目录，避免在手机上下大文件。
 
+> **本仓默认本地 LLM**：MoeAvatarPro / MnnLlmChat 实测用我自己微调的猫娘 0.8B —— [jiaohui/qwen35_08b_nekoneko](https://modelscope.cn/models/jiaohui/qwen35_08b_nekoneko)（Qwen3-0.8B 基座，已转 MNN）。下载后 `adb push` 到 App 扫描目录即可；详细说明见 doc 10 §10。
+>
+> ```bash
+> pip install modelscope
+> modelscope download --model jiaohui/qwen35_08b_nekoneko --local_dir /tmp/qwen35_08b_nekoneko
+> adb push /tmp/qwen35_08b_nekoneko /sdcard/Download/MoeAvatar/models/   # MoeAvatarPro
+> # 或 MnnLlmChat: adb push 到 /sdcard/Android/data/com.alibaba.mnnllm.android/files/...
+> ```
+
 ---
 
 ## 常见问题

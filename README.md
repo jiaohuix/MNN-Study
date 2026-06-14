@@ -1,65 +1,61 @@
-# Android Demo 归档（纯代码版）
+# MNN-Study
 
-仅保留源码、Gradle 配置、AndroidManifest、layout/res，能让人一眼看清"做了什么、怎么对接 MNN"。
-**不含**：编译产物、模型文件、第三方依赖源码、jniLibs `.so`。下次要编译需要按下面"补料清单"把对应内容拉回。
+学习 [alibaba/MNN](https://github.com/alibaba/MNN) 端侧推理引擎的实操记录。
+不是 MNN 的 fork，而是"在 WSL 里从零把 MNN LLM / TTS / ASR / Live2D 数字人跑到安卓手机上"过程中沉淀下来的**文档 + 可参考的 Android demo 代码**。
 
-| Demo | 用途 | 归档大小 | 原始大小 |
-|---|---|---|---|
-| `MoeChat/` | 最早的 MNN LLM 聊天 demo（备份基线） | ~256K | 72M |
-| `MoeAvatarPro/` | Live2D 数字人版：LLM + Bert-VITS2 TTS + sherpa-mnn ASR + Live2D | ~524K | 1.3G |
-| `MnnAsrTest/` | sherpa-mnn 流式 ASR 单 Activity 测试 App（zipformer 中英双语） | ~220K | 78M |
+读者画像：**熟 Python，不熟 Android/Java/NDK**，但要在 Linux/WSL 命令行下完成端侧 AI App 的开发与部署。
 
-## 共同剔除项
+## 这里有什么
 
 ```
-build/        .gradle/      .cxx/        .idea/      *.iml      local.properties
+MNN-Study/
+├── docs/android-wsl-开发指南/   # 一套从 0 到 1 的中文实操文档（13 篇）
+└── apps/                        # 三个 Android demo 的纯代码归档（无 build/无模型/无 .so）
+    ├── MoeChat/                 # MNN LLM 聊天 baseline
+    ├── MoeAvatarPro/            # Live2D 数字人：LLM + Bert-VITS2 TTS + sherpa-mnn ASR
+    └── MnnAsrTest/              # sherpa-mnn 流式 ASR 单 Activity 测试 App
 ```
 
-## 各项目额外剔除项
+## 文档导览
 
-### MoeChat
-无（本来就没有 assets/jniLibs）。
+完整索引见 [docs/android-wsl-开发指南/00_总览_这套文档讲什么.md](docs/android-wsl-开发指南/00_总览_这套文档讲什么.md)。
+关键篇目：
 
-### MoeAvatarPro（剔得最多）
-- `app/src/main/assets/`（127M：bert + bv2_model TTS 模型）
-- `app/src/main/jniLibs/`（5M：编译出来的 .so）
-- 顶层第三方依赖目录：`cppjieba/  cpptokenizer/  live2d/  openjtalk/  sherpa/  text-preprocess/  third_party/`（合计 ~460M，CMake 通过相对路径引用，编译时必须存在）
-- `.lfs_pointers/`
+| # | 主题 |
+|---|---|
+| 02 | WSL 不装 Android Studio，纯命令行装 SDK/NDK，连手机的三种方式 |
+| 03 | 编 MNN 核心库 → 编 MnnLlmChat App → adb 装机的完整命令 |
+| 05 | 国内网络下 Gradle / 镜像 / 一次性复现脚本 |
+| 07 | MnnLlmChat 项目结构、UI 布局、JNI 桥接全景 |
+| 08 | 把 Bert-VITS2-MNN TTS 接进新 App 的踩坑实录 |
+| 10 | MoeAvatarPro 模块结构 + LLM/TTS/Live2D/ASR 数据流 |
+| 11 | Android 7+ namespace 隔离下 sherpa-mnn-jni dlopen 失败的根因 + CMake shim |
+| 13 | ★ 终结篇：sherpa-mnn ASR 集成 8 步清单（DT_NEEDED / 模型路径 / UI 坑全包） |
 
-### MnnAsrTest
-- `app/src/main/jniLibs/`（含 libsherpa-mnn-jni.so / libMNN.so / libMNN_Express.so / libc++_shared.so）
+## Demo 归档
 
-## 补料清单（想要重新编译时）
+`apps/` 下三个 demo 是**纯代码版**：保留源码、Gradle、AndroidManifest、res，剔除 build/、第三方源码、模型文件、jniLibs 的 `.so`。
+要重新编译需按 [apps/README.md](apps/README.md) 的"补料清单"把对应内容拉回。归档总大小 ~1MB。
 
-### MoeAvatarPro
-```bash
-# 1. 第三方依赖（从原工作树拉回，或重新 git submodule init/update / git lfs pull）
-cp -r /home/jhx/Projects/nlp/MNN/apps/Android/MoeAvatarPro/{cppjieba,cpptokenizer,live2d,openjtalk,sherpa,text-preprocess,third_party} .
+| Demo | 一句话 | 配套文档 |
+|---|---|---|
+| MoeChat | 最早能跑通的 MNN LLM 聊天界面 | 03 / 07 |
+| MoeAvatarPro | Live2D 数字人：LLM 驱动对话 + TTS 出声 + ASR 听语音 | 09 / 10 |
+| MnnAsrTest | 单 Activity 验证 sherpa-mnn 流式 ASR，含 RTF / 首字延时指标 | 11 / 12 / 13 |
 
-# 2. TTS 模型 assets（128M）
-cp -r /home/jhx/Projects/nlp/MNN/apps/Android/MoeAvatarPro/app/src/main/assets app/src/main/
+## 实测使用的模型（ModelScope）
 
-# 3. ASR 模型 push 到设备（不打包进 APK）
-adb push sherpa-mnn-streaming-zipformer-bilingual-zh-en /data/local/tmp/asr/
-```
+| 用途 | 模型 |
+|---|---|
+| 流式 ASR（MnnAsrTest / MoeAvatarPro） | [MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20](https://www.modelscope.cn/models/MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20) — sherpa-mnn 中英双语流式 zipformer |
+| 本地 LLM（MoeChat / MoeAvatarPro 默认） | [jiaohui/qwen35_08b_nekoneko](https://modelscope.cn/models/jiaohui/qwen35_08b_nekoneko) — 我自己微调的猫娘 0.8B（Qwen3-0.8B → MNN） |
 
-### MnnAsrTest
-`jniLibs/arm64-v8a/` 下需要：
-```
-libMNN.so  libMNN_Express.so  libsherpa-mnn-jni.so  libasrtest_shim.so  libc++_shared.so
-```
-- `libMNN.so` / `libMNN_Express.so`：MNN Android 核心库编译产物
-- `libsherpa-mnn-jni.so`：来自 [k2-fsa/sherpa-mnn](https://github.com/k2-fsa/sherpa-mnn) Android 编译
-- `libasrtest_shim.so`：CMake 在本项目内编译（cpp/asrtest_shim.cpp）
-- `libc++_shared.so`：NDK 自带，需要随包
+下载与 push 命令见 [apps/README.md §模型来源](apps/README.md)。
 
-完整 step-by-step 参考 `docs/13_Android集成sherpa-mnn-ASR完整指南.md`。
-ASR 模型同样推到 `/data/local/tmp/asr/`，不要放 `/sdcard/Download`（Android 11+ scoped storage 拦读权限）。
+## 这套记录的目的
 
-## 关键文档（已在 docs/ 同步）
+- 把"端侧大模型上 Android"这条路上踩过的坑（namespace、scoped storage、Gradle 镜像、UI 不显示…）一次性写清楚，下次直接复用
+- 给同样不熟 Android 的同行一份"小白也能照抄"的 step-by-step
+- 配合 demo 代码当作模板，从中拷出 CMake / Manifest / Activity 直接拼新 App
 
-- `09_MoeAvatarPro编译部署技能_给AI用.md` — MoeAvatarPro 一键编译
-- `10_MoeAvatarPro项目拆解.md` — Live2D 数字人模块结构
-- `11_sherpa-mnn-jni加载坑案.md` — DT_NEEDED / namespace 问题
-- `12_MnnAsrTest本轮改动与mic闪退待查.md` — 4 处改动总结
-- `13_Android集成sherpa-mnn-ASR完整指南.md` — sherpa ASR 集成 8 步清单（终结篇）
+不涉及 MNN 引擎本身的内部实现细节——那部分在上游 [alibaba/MNN](https://github.com/alibaba/MNN) 仓库。

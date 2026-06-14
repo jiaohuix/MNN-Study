@@ -192,11 +192,30 @@ private var ptr: Long = newFromFile(config).also {
 
 ### 步骤 7: 模型存放位置——必须用 App 可读路径
 
-**测试期**: 推到 `/data/local/tmp/asr/`,所有 App 都能读:
+本仓 demo 用的就是 MNN 官方在 ModelScope 上发布的中英双语流式 zipformer:
+**[MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20](https://www.modelscope.cn/models/MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20)**
 
 ```bash
-adb shell "mkdir -p /data/local/tmp/asr && cp -r /sdcard/Download/MoeAvatar/asr/<模型目录> /data/local/tmp/asr/ && chmod -R 755 /data/local/tmp/asr"
+# 1) 下载到本机(任选其一)
+git lfs install
+git clone https://www.modelscope.cn/MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20.git
+# 或: pip install modelscope && modelscope download --model MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20
+
+# 2) 推到设备 /data/local/tmp/asr/(测试期,所有 App 都能读)
+adb shell mkdir -p /data/local/tmp/asr
+adb push sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20 /data/local/tmp/asr/
+adb shell chmod -R 755 /data/local/tmp/asr
 ```
+
+落地后目录结构:
+```
+/data/local/tmp/asr/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20/
+├── encoder-epoch-99-avg-1.int8.mnn
+├── decoder-epoch-99-avg-1.int8.mnn
+├── joiner-epoch-99-avg-1.int8.mnn
+└── tokens.txt
+```
+`AsrTestActivity.DEFAULT_MODEL_DIR` 默认填的就是这个路径。
 
 **生产期**: 改成 App 私有目录(`context.filesDir`),首次启动从 assets 或下载源拷贝过去。**不要**用 `/sdcard/Download` 跨 App 共享(scoped storage 会拦)。
 
