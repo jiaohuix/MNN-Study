@@ -1,7 +1,7 @@
 # MNN-Study
 
 学习 [alibaba/MNN](https://github.com/alibaba/MNN) 端侧推理引擎的实操记录。
-不是 MNN 的 fork，而是"在 WSL 里从零把 MNN LLM / TTS / ASR / Live2D 数字人跑到安卓手机上"过程中沉淀下来的**文档 + 可参考的 Android demo 代码**。
+"在 WSL 里从零把 MNN LLM / TTS / ASR / Live2D 数字人跑到安卓手机上"过程中沉淀下来的**文档 + 可参考的 Android demo 代码**。
 
 读者画像：**熟 Python，不熟 Android/Java/NDK**，但要在 Linux/WSL 命令行下完成端侧 AI App 的开发与部署。
 
@@ -48,7 +48,7 @@ MNN-Study/
 | 用途 | 模型 |
 |---|---|
 | 流式 ASR（MnnAsrTest / MoeAvatarPro） | [MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20](https://www.modelscope.cn/models/MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20) — sherpa-mnn 中英双语流式 zipformer |
-| 本地 LLM（MoeChat / MoeAvatarPro 默认） | [jiaohui/qwen35_08b_nekoneko](https://modelscope.cn/models/jiaohui/qwen35_08b_nekoneko) — 我自己微调的猫娘 0.8B（Qwen3-0.8B → MNN） |
+| 本地 LLM（MoeChat / MoeAvatarPro 默认） | [jiaohui/qwen35_08b_nekoneko](https://modelscope.cn/models/jiaohui/qwen35_08b_nekoneko) — 自己微调的猫娘 0.8B（Qwen3-0.8B → MNN） |
 
 下载与 push 命令见 [apps/README.md §模型来源](apps/README.md)。
 
