@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MoeChat ✨</string>
+    <string name="hint_input">和我聊聊吧～</string>
+    <string name="btn_send">发送</string>
+    <string name="btn_stop">停止</string>
+    <string name="btn_load">加载</string>
+    <string name="btn_reset">清空对话</string>
+    <string name="dialog_load_title">加载本地 MNN 模型</string>
+    <string name="dialog_load_msg">填写 config.json 的绝对路径（已 adb push 到手机的目录）</string>
+    <string name="welcome_hint">こんにちは～(´• ω •`) 我是 MoeChat！\n点左下角 📂 加载已经放到手机里的 MNN LLM 模型 config.json，再开始聊天哦～</string>
+    <string name="status_loading">正在加载模型…</string>
+    <string name="status_load_failed">加载失败</string>
+    <string name="toast_loaded">模型加载成功 ♡</string>
+    <string name="err_path">找不到该路径</string>
+    <string name="err_load">加载失败：检查 config.json 路径与权限</string>
+    <string name="err_no_model">请先加载模型</string>
+</resources>

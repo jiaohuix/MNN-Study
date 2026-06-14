@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="md_theme_primary">#1565C0</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="md_theme_secondary">#E53935</color>
+    <color name="md_theme_background">#FAFAFA</color>
+    <color name="md_theme_surface">#FFFFFF</color>
+    <color name="md_theme_onSurface">#1C1B1F</color>
+    <color name="md_theme_outline">#79747E</color>
+
+    <color name="mic_idle">#1565C0</color>
+    <color name="mic_recording">#E53935</color>
+</resources>

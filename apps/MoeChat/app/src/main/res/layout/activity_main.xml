@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_chat_gradient">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/bg_toolbar"
+            app:titleTextColor="@android:color/white"
+            app:subtitleTextColor="#FFE6F4FF" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="80dp"
+        android:paddingBottom="96dp"
+        android:paddingHorizontal="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:padding="8dp"
+        android:background="@drawable/bg_input_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_load"
+                style="@style/Widget.Material3.Button.IconButton.Filled"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginEnd="6dp"
+                android:text="📂"
+                android:minWidth="42dp"
+                android:textSize="14sp"
+                android:backgroundTint="#FFB6E1FF"
+                android:textColor="#FF6B4F8B"
+                app:cornerRadius="21dp"
+                android:contentDescription="@string/dialog_load_title" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_reset"
+                style="@style/Widget.Material3.Button.IconButton.Filled"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginEnd="6dp"
+                android:text="↻"
+                android:minWidth="42dp"
+                android:textSize="18sp"
+                android:backgroundTint="#FFFFD3E0"
+                android:textColor="#FF8B5C9F"
+                app:cornerRadius="21dp"
+                android:contentDescription="@string/btn_reset" />
+
+            <EditText
+                android:id="@+id/edit_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_input"
+                android:hint="@string/hint_input"
+                android:padding="12dp"
+                android:textColor="#FF4A2A6E"
+                android:textColorHint="#9988669A"
+                android:textSize="15sp"
+                android:maxLines="4"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine|textCapSentences" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginStart="6dp"
+                android:text="@string/btn_send"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#FFFF8FB1"
+                app:cornerRadius="21dp"
+                android:enabled="false" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

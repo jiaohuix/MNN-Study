@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ASR Test</string>
+    <string name="model_dir_hint">模型目录路径（如 /sdcard/Download/MoeAvatar/asr/...）</string>
+    <string name="btn_load">加载模型</string>
+    <string name="btn_mic">按住说话</string>
+    <string name="status_idle">输入模型目录并点击加载</string>
+    <string name="status_loading">加载中…</string>
+    <string name="status_ready">ASR 就绪 · 按住下方按钮说话</string>
+    <string name="status_recording">录音中…</string>
+    <string name="status_stopped">已停止</string>
+    <string name="status_failed">ASR 加载失败，看 logcat</string>
+    <string name="no_result">识别结果会显示在这里</string>
+    <string name="load_first">请先加载 ASR 模型</string>
+</resources>

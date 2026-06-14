@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MoeAvatar ✨</string>
+    <string name="tts_title">TTS Demo · Bert-VITS2-MNN</string>
+    <string name="tts_status_idle">待机</string>
+    <string name="tts_status_init">初始化模型中…</string>
+    <string name="tts_status_ready">已就绪 · 可合成</string>
+    <string name="tts_status_init_failed">初始化失败</string>
+    <string name="tts_status_synth">合成中…</string>
+    <string name="tts_status_play">播放中</string>
+    <string name="tts_hint">输入要合成的句子，例如：你好，我是甘雨</string>
+    <string name="tts_label_speaker">音色</string>
+    <string name="tts_label_speed">语速</string>
+    <string name="tts_btn_synth">合成并播放</string>
+    <string name="tts_btn_stop">停止</string>
+    <string name="tts_btn_init">初始化引擎</string>
+    <string name="tts_err_empty">请输入文本</string>
+    <string name="tts_err_not_ready">引擎尚未初始化完成</string>
+    <string name="tts_err_synth">合成失败：%1$s</string>
+</resources>

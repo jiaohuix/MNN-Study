@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_chat_gradient">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/bg_toolbar"
+        app:titleTextColor="@android:color/white"
+        app:subtitleTextColor="#FFE6F4FF"
+        app:title="@string/tts_title"
+        app:subtitle="@string/tts_status_idle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tts_label_speaker"
+                android:textColor="#FF4A2A6E"
+                android:textSize="14sp"
+                android:layout_marginBottom="6dp" />
+
+            <Spinner
+                android:id="@+id/spinner_speaker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/bg_input" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tts_label_speed"
+                android:textColor="#FF4A2A6E"
+                android:textSize="14sp"
+                android:layout_marginBottom="6dp" />
+
+            <SeekBar
+                android:id="@+id/seek_speed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="200"
+                android:progress="100"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tv_speed_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="length_scale = 1.00"
+                android:textColor="#FF6B4F8B"
+                android:textSize="12sp"
+                android:layout_marginBottom="14dp" />
+
+            <EditText
+                android:id="@+id/edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="120dp"
+                android:gravity="top|start"
+                android:hint="@string/tts_hint"
+                android:padding="12dp"
+                android:background="@drawable/bg_input"
+                android:textColor="#FF4A2A6E"
+                android:textColorHint="#9988669A"
+                android:textSize="15sp"
+                android:inputType="textMultiLine|textCapSentences" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="14dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_init"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="48dp"
+                    android:text="@string/tts_btn_init"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#FFB6E1FF"
+                    app:cornerRadius="24dp"
+                    android:layout_marginEnd="6dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_synth"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="48dp"
+                    android:text="@string/tts_btn_synth"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#FFFF8FB1"
+                    app:cornerRadius="24dp"
+                    android:enabled="false" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                android:background="@drawable/bg_bubble_assistant"
+                android:textColor="#FF4A2A6E"
+                android:textSize="12sp"
+                android:fontFamily="monospace"
+                android:text="日志会显示在这里…" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

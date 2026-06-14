@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+聊天 + Live2D 背景：
+  最底是 live2d_container（FrameLayout，里面放 GLSurfaceView，
+  Activity 在 onCreate 里 inflate 完用 add 把 GLSurfaceView 塞进去）；
+  上面盖一层半透明的 chat 容器，气泡浮在 Live2D 角色之上。
+  Toolbar 用稍微透明一点的背景，避免完全遮住头顶。
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF6FA"
+    android:fitsSystemWindows="true">
+
+    <!-- Live2D 渲染面板：填满整屏，由代码动态 add GLSurfaceView 进去 -->
+    <FrameLayout
+        android:id="@+id/live2d_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- 聊天 UI：垂直栈，背景半透明让角色透出来 -->
+    <LinearLayout
+        android:id="@+id/chat_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#CCFFB6C1"
+            app:title="聊天"
+            app:menu="@menu/chat_menu"
+            app:titleTextColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="12sp"
+            android:textColor="#666"
+            android:background="#80FFFFFF"
+            android:text="未就绪"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_messages"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:clipToPadding="false"/>
+
+        <LinearLayout
+            android:id="@+id/layout_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="horizontal"
+            android:background="#F2FFFFFF">
+
+            <EditText
+                android:id="@+id/edit_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="说点什么…"
+                android:maxLines="3"
+                android:inputType="textMultiLine|textCapSentences"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

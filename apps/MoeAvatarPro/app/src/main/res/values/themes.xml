@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MoeAvatar" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#FFFF8FB1</item>
+        <item name="colorPrimaryVariant">#FFB28DFF</item>
+        <item name="colorOnPrimary">#FFFFFFFF</item>
+        <item name="colorSecondary">#FFB28DFF</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">#FFFF8FB1</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowBackground">@drawable/bg_chat_gradient</item>
+    </style>
+</resources>
