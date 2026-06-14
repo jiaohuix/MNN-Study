@@ -48,7 +48,7 @@ MNN-Study/
 | 用途 | 模型 |
 |---|---|
 | 流式 ASR（MnnAsrTest / MoeAvatarPro） | [MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20](https://www.modelscope.cn/models/MNN/sherpa-mnn-streaming-zipformer-bilingual-zh-en-2023-02-20) — sherpa-mnn 中英双语流式 zipformer |
-| 本地 LLM（MoeChat / MoeAvatarPro 默认） | [jiaohui/qwen35_08b_nekoneko](https://modelscope.cn/models/jiaohui/qwen35_08b_nekoneko) — 自己微调的猫娘 0.8B（Qwen3-0.8B → MNN） |
+| 本地 LLM（MoeChat / MoeAvatarPro 默认） | [jiaohui/qwen35_08b_nekoneko](https://modelscope.cn/models/jiaohui/qwen35_08b_nekoneko-MNN) — 自己微调的猫娘 0.8B（Qwen3-0.8B → MNN） |
 
 下载与 push 命令见 [apps/README.md §模型来源](apps/README.md)。
 
